@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>彩票随机生成</title>
+  <style type="text/css">
+   *{
+     margin: 0;
+     padding: 0;
+   }
+   .wrap{
+     width: 500px;
+     height: 220px;
+     background-color: #eee;
+     margin: 0 auto;
+     margin-bottom:50px;
+     margin-top:20px;
+   }
+/*     .wrap1{
+     width: 500px;
+     height: 200px;
+     background-color: #eee;
+     margin-bottom:50px;
+     float:right;
+/*      margin: 0 auto; */
+   } */
+   .list{
+     width: 440px;
+     /*border: 1px solid red;*/
+     margin: 0px auto;
+   }
+   .list li{
+      list-style: none;
+      width: 30px;
+      height: 30px;
+      display: inline-block;
+      border: 1px solid #fff;
+      border-radius: 30px;
+      line-height: 30px;
+      text-align: center;
+      margin: 15px auto 15px;
+      /*background-color: #f8f8f8;*/
+      /*background-color: rgba(255,255,255,1);*/
+   }
+   .wrap p{
+     text-align: center;
+   }
+   .wrap p button{
+     text-align: center;
+     width: 100px;
+   }
+   #setBtn{
+     background-color: red;
+     color: #fff;
+     border: none;
+   }
+    #setBtn1{
+     background-color: blue;
+     color: #fff;
+     border: none;
+   }
+   .active{
+     background-color: red;
+     color: #fff;
+   }
+    .active1{
+     background-color: blue;
+     color: #fff;
+   }
+   h1 {
+    display:block;
+    text-align:center;
+   }
+  </style>
+</head>
+<body>
+    <h1>双色球随机选票</h1>
+    <div class="wrap" id="wrap">
+       <ul class="list">
+         <li>01</li>
+         <li>02</li>
+         <li>03</li>
+         <li>04</li>
+         <li>05</li>
+         <li>06</li>
+         <li>07</li>
+         <li>08</li>
+         <li>09</li>
+         <li>10</li>
+         <li>11</li>
+         <li>12</li>
+         <li>13</li>
+         <li>14</li>
+         <li>15</li>
+         <li>16</li>
+         <li>17</li>
+         <li>18</li>
+         <li>19</li>
+         <li>20</li>
+         <li>21</li>
+         <li>22</li>
+         <li>23</li>
+         <li>24</li>
+         <li>25</li>
+         <li>26</li>
+         <li>27</li>
+         <li>28</li>
+         <li>29</li>
+         <li>30</li>
+         <li>31</li>
+         <li>32</li>
+         <li>33</li>
+       </ul>
+       <p>
+         <button id="setBtn">随机红球</button>
+        <button id="clearBtn">清空</button>
+       </p>
+    </div>
+    <div class="wrap" id="wrap1">
+       <ul class="list">
+         <li>01</li>
+         <li>02</li>
+         <li>03</li>
+         <li>04</li>
+         <li>05</li>
+         <li>06</li>
+         <li>07</li>
+         <li>08</li>
+         <li>09</li>
+         <li>10</li>
+         <li>11</li>
+         <li>12</li>
+         <li>13</li>
+         <li>14</li>
+         <li>15</li>
+         <li>16</li>
+       </ul>
+       <p>
+         <button id="setBtn1">随机蓝球</button>
+        <button id="clearBtn1">清空</button>
+       </p>
+    </div>
+    <script type="text/javascript">
+       var ballList = document.getElementById("wrap").getElementsByTagName("li");
+       var ballList1 = document.getElementById("wrap1").getElementsByTagName("li");
+       var setBtn =document.getElementById("setBtn");
+       var setBtn1 =document.getElementById("setBtn1");
+       var clearBtn =document.getElementById("clearBtn");
+       var clearBtn1 =document.getElementById("clearBtn1");
+       //定义随机数组
+       function rnd(min, max) {
+       return parseInt(Math.random()*(max - min + 1) + min);
+     }
+     function rndArray(min, max, length) {
+    //先定义一个空数组
+    var arr = [];
+    //生成一个长度为6的数组
+    while(arr.length < length) {
+      //生成一个随机数
+      var rand = rnd(min, max);
+      //判断生成的随机数rand是否在数组arr里,果然不在，就将这个随机数插入到数组里，如果在，执行下一次循环
+      if(arr.indexOf(rand) == -1) {
+        arr.push(rand);
+      }
+    }
+    arr.sort(function(a, b){return a - b;})
+    return arr;
+  }
+
+  function selectBall() {
+    for(var j = 0; j < ballList.length; j++) {
+      ballList[j].className = "";
+    }
+    var arr = rndArray(1,33,6);
+    // console.log(arr);
+    for(var i = 0; i < arr.length; i++) {
+      ballList[arr[i]-1].className = "active";
+    }
+  }
+    function selectBall1() {
+    for(var j = 0; j < ballList1.length; j++) {
+      ballList1[j].className = "";
+    }
+    var arr = rndArray(1,16,1);
+    // console.log(arr);
+    for(var i = 0; i < arr.length; i++) {
+      ballList1[arr[i]-1].className = "active1";
+    }
+  }
+  var timer = 0;
+  setBtn.onclick = function() {
+    clearTimeout(timer);
+    timer = setInterval(selectBall,100);
+    setTimeout(function() {
+      clearTimeout(timer);
+    },2000)
+    // clearTimeout(timer);
+  }
+  setBtn1.onclick = function() {
+    clearTimeout(timer);
+    timer = setInterval(selectBall1,100);
+    setTimeout(function() {
+      clearTimeout(timer);
+    },2000)
+    // clearTimeout(timer);
+  }
+
+  clearBtn.onclick = function() {
+    clearTimeout(timer);
+    for(var j = 0; j < ballList.length; j++) {
+      ballList[j].className = "";
+    }
+  }
+    clearBtn1.onclick = function() {
+    clearTimeout(timer);
+    for(var j = 0; j < ballList1.length; j++) {
+      ballList1[j].className = "";
+    }
+  }
+    </script>
+</body>
+</html>
